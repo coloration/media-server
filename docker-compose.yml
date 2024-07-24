@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  ms-web-service:
+    build: ./server
+    container_name: ms-web-service
+    restart: always
+    ports:
+      - "3003:3000"
+    environment:
+      - APP_NAME=ms-web-service
+      - DEV=False
+      - DEBUG=False
+      - MEDIA_SERVICE_PORT=8080
+      # use container inner port
+      # https://stackoverflow.com/questions/55523273/why-container-cant-request-to-another
+      - MEDIA_SERVICE_RESTFUL_API_URL=http://ms-media-service:80/index/api
+    volumes:
+    #  自定义MediaServer
+#     - ./bin:/opt/media/bin
+    #  自定义config.ini 查看 secret
+    - ./conf/ms-media-service.ini:/opt/media/conf/config.ini
+    depends_on:
+      - ms-media-service
+    networks:
+      - app-network
+
+  ms-media-service:
+    image: zlmediakit/zlmediakit:master
+    container_name: ms-media-service
+    restart: always
+    ports:
+      - 1935:1935 
+      - 8080:80 
+      - 8443:443
+      - 8554:554 
+      # - 10000:10000 
+      # - 10000:10000/udp
+      # - 8000:8000/udp
+      # - 9000:9000/udp
+    volumes:
+    #  自定义MediaServer
+#     - ./bin:/opt/media/bin
+    #  自定义config.ini 查看 secret
+    - ./conf/ms-media-service.ini:/opt/media/conf/config.ini
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

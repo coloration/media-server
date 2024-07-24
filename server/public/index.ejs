@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= pageTitle %></title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      /* overflow: hidden; */
+    }
+
+    video {
+      position: fixed !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 10;
+    }
+  </style>
+  <script type="text/javascript" src="./js/liveplayer-element.min.js"></script>
+</head>
+
+<body>
+  <live-player
+      id="video"
+      live="true"
+      aspect="fullscreen"
+      stretch="true"
+      autoplay
+    />
+  </live-player>
+</body>
+<script>
+  
+  const dom = document.getElementById('video')
+
+  function resizeCanvas() {
+    dom.width = window.innerWidth;
+    dom.height = window.innerHeight;
+  }
+
+  resizeCanvas()
+
+  window.addEventListener('resize', resizeCanvas)
+
+  const url = "<%=url%>"
+  setTimeout(() => {
+    dom.setAttribute('video-url', url)
+  }, 100)
+</script>
+
+</html>
