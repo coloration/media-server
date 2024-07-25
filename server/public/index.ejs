@@ -47,8 +47,10 @@
 
   window.addEventListener('resize', resizeCanvas)
 
-  const url = "<%=url%>"
+  const videoPort= <%=videoPort%>
+  const videoStream = "<%=videoStream%>"
   setTimeout(() => {
+    const url = `http://${window.location.hostname}:${videoPort}/${'live'}/${videoStream}.live.flv`
     dom.setAttribute('video-url', url)
   }, 100)
 </script>

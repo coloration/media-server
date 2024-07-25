@@ -38,8 +38,9 @@ app.get('/', function (req, res) {
   })
   .finally(() => {
     res.render('index', {
-      url: `http://localhost:${mediaSevicePort}/${'live'}/${stream}.live.flv`,
       pageTitle: 'video',
+      videoPort: mediaSevicePort,
+      videoStream: stream
     })
   })
 })
