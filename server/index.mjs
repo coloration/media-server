@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import fs from 'fs'
 import { mediaApi } from './api/index.mjs'
 const app = express()
-const port = 3000
+const port = Number(process.env.SERVER_PORT)
 const mediaSevicePort = Number(process.env.MEDIA_SERVICE_PORT)
 
 let mediaSecret = ''
@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
   mediaApi.get('/addStreamProxy', {
     params: {
       secret: getMediaSecret(),
-      vhost: '__defaultVhost__',  // http://localhost:8080/${app}/${stream}.live.flv
+      vhost: '__defaultVhost__',  // e.g. http://localhost:8080/${app}/${stream}.live.flv
       app: 'live',
       stream: stream,
       url: url,
@@ -39,7 +39,7 @@ app.get('/', function (req, res) {
   .finally(() => {
     res.render('index', {
       url: `http://localhost:${mediaSevicePort}/${'live'}/${stream}.live.flv`,
-      pageTitle: 'video'
+      pageTitle: 'video',
     })
   })
 })

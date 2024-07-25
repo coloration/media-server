@@ -23,6 +23,9 @@ WORKDIR /usr/src/app
 
 COPY --from=build /usr/src/app .
 
-EXPOSE 3000
+EXPOSE 3300
 
 CMD ["node", "index.mjs"]
+
+
+
