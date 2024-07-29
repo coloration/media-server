@@ -5,6 +5,7 @@ services:
     build: ./server
     container_name: ms-web-service
     restart: always
+    # 外部暴露端口:内部使用端口
     ports:
       - "9300:9300"
     environment:
@@ -13,13 +14,16 @@ services:
       - DEBUG=False
       - SERVER_PORT=9300
       - MEDIA_SERVICE_PORT=9310
-      # use container inner port
+      # 内部请求服务器地址
+      # 避免受外部端口变更影响
       # https://stackoverflow.com/questions/55523273/why-container-cant-request-to-another
       - MEDIA_SERVICE_RESTFUL_API_URL=http://ms-media-service:80/index/api
+
+      # 必须与 volumes 定义相同
+      - MEDIA_SERVICE_CONFIG_URI=/opt/media/conf/config.ini
     volumes:
-    #  自定义MediaServer
-#     - ./bin:/opt/media/bin
-    #  自定义config.ini 查看 secret
+
+    #  自定义config.ini 方便 node-server 查看 secret
     - ./conf/ms-media-service.ini:/opt/media/conf/config.ini
     depends_on:
       - ms-media-service
@@ -40,9 +44,7 @@ services:
       # - 8000:8000/udp
       # - 9000:9000/udp
     volumes:
-    #  自定义MediaServer
-#     - ./bin:/opt/media/bin
-    #  自定义config.ini 查看 secret
+    #  自定义config.ini 方便 node-server 查看 secret
     - ./conf/ms-media-service.ini:/opt/media/conf/config.ini
     networks:
       - app-network
