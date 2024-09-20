@@ -28,7 +28,9 @@ app.get('/', function (req, res) {
   const { stream, url } = req.query
   console.log(stream, url)
   // res.sendFile(__dirname + '/index.html')
+  
 
+  // https://github.com/ZLMediaKit/ZLMediaKit/wiki/MediaServer%E6%94%AF%E6%8C%81%E7%9A%84HTTP-API#12indexapiaddstreamproxy
   mediaApi.get('/addStreamProxy', {
     params: {
       secret: getMediaSecret(),

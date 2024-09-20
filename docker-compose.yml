@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   ms-web-service:
     build: ./server

@@ -4,6 +4,7 @@
 # 视频流播放服务
 
 
+
 ### 部署使用
 
 ``` bash
@@ -14,7 +15,7 @@ $ docker-compose up -d
 
 ### 功能描述
 
-基于github 开源项目 。通过 node server 转发 url参数向流媒体发送添加视频推流的请求。然后在前端播放 flv 页面
+基于github 开源项目 <https://github.com/ZLMediaKit/ZLMediaKit> 。通过 node server 转发 url参数向流媒体发送添加视频推流的请求。然后在前端播放 flv 页面
 
 前端可以通过 `iframe` `webview` 等技术通过配置url参数即可。
 
@@ -72,3 +73,11 @@ $ docker-compose up --build
 $ systemctl daemon-reload
 $ systemctl reload docker
 ```
+
+
+## TODO 优化
+
+- js => ts
+- flv => mpegts or webrtc
+
+<https://github.com/ZLMediaKit/ZLMediaKit/wiki/webrtc%E4%BF%A1%E4%BB%A4%E4%BA%A4%E4%BA%92%E6%A0%BC%E5%BC%8F>
